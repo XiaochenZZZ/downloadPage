@@ -1,14 +1,8 @@
 name: 自动打包 EXE
 
-# 触发条件：推送到 main 分支时，且修改了 .py 文件或依赖文件
 on:
   push:
-    branches:
-      - main
-    paths:
-      - '**/*.py'
-      - '**/requirements.txt'
-      - '**/download_xls.py'   # 可按需要调整
+  workflow_dispatch:   # 允许在 Actions 页面手动触发
 
 jobs:
   build:
@@ -32,8 +26,8 @@ jobs:
         run: |
           pyinstaller --onefile --name=download_xls download_xls.py
 
-      - name: 上传 EXE 为 Artifact（可在 Actions 页面下载）
+      - name: 上传 EXE 为 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: download_xls-${{ github.run_id }}
+          name: download_xls
           path: dist/download_xls.exe
