@@ -23,11 +23,13 @@ jobs:
           pip install pyinstaller
 
       - name: 打包为 EXE
-        run: |
-          pyinstaller --onefile --name=downloadPage downloadPage.py
+        run: pyinstaller --onefile --name downloadPage downloadPage.py
 
-      - name: 上传 EXE 为 Artifact
+      - name: 上传 EXE
         uses: actions/upload-artifact@v4
         with:
           name: downloadPage
-          path: downloadPage.exe
+          path: dist/downloadPage.exe
+          
+      - name: 检查 dist 目录
+        run: dir dist
