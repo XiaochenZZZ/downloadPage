@@ -5,6 +5,7 @@
 - 自动重试 + 退避
 - 可配置请求间隔范围
 - 下载进度记录，支持中断后续传
+- 文件保存至程序所在目录下的“下载文件”文件夹
 """
 
 import os
@@ -33,7 +34,8 @@ USER_AGENTS = [
 MAX_RETRIES = 3   # 每个请求最大重试次数
 # ===============================================
 
-SAVE_DIR = os.path.dirname(os.path.abspath(__file__)) or "."
+# 修改这里：在程序所在目录下创建“下载文件”文件夹
+SAVE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "下载文件")
 
 def get_random_ua():
     return random.choice(USER_AGENTS)
