@@ -21,7 +21,7 @@ jobs:
       - name: 安装 Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.9'
 
       - name: 安装依赖
         run: |
@@ -30,7 +30,7 @@ jobs:
 
       - name: 打包为 EXE
         run: |
-          pyinstaller --onefile --name download_xls download_xls.py
+          pyinstaller --onefile --name=download_xls download_xls.py
 
       - name: 上传 EXE 为 Artifact（可在 Actions 页面下载）
         uses: actions/upload-artifact@v4
