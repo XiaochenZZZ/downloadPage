@@ -29,5 +29,5 @@ jobs:
       - name: 上传 EXE 为 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: download_xls
-          path: dist/download_xls.exe
+          name: downloadPage
+          path: downloadPage.exe
