@@ -1,0 +1,35 @@
+name: Build EXE and Release
+
+# 当发布一个新的 Release 时自动触发
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: 打包为 EXE
+        run: |
+          pyinstaller --onefile --name download_xls download_xls.py
+
+      - name: 上传 EXE 到 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/download_xls.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
