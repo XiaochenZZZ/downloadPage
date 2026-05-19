@@ -10,6 +10,7 @@
 
 import os
 import re
+import sys
 import time
 import random
 import requests
@@ -35,7 +36,7 @@ MAX_RETRIES = 3   # 每个请求最大重试次数
 # ===============================================
 
 # 修改这里：在程序所在目录下创建“下载文件”文件夹
-SAVE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "下载文件")
+SAVE_DIR = os.path.join(os.path.dirname(sys.executable), "下载文件")
 
 def get_random_ua():
     return random.choice(USER_AGENTS)
