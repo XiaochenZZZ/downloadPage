@@ -1,35 +1,36 @@
-name: 自动打包 EXE
-
+name: Build Windows Executable
 on:
   push:
-  workflow_dispatch:   # 允许在 Actions 页面手动触发
-
+    branches: [ main ]
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4       
 
-      - name: 安装 Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
+    - name: Set up Python
+      uses: actions/setup-python@v5    
+      with:
+        python-version: '3.9'
 
-      - name: 安装依赖
-        run: |
-          pip install -r requirements.txt
-          pip install pyinstaller
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
+        
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --onefile --name downloadPage downloadPage.py
 
-      - name: 打包为 EXE
-        run: pyinstaller --onefile --name downloadPage downloadPage.py
-
-      - name: 上传 EXE
-        uses: actions/upload-artifact@v4
-        with:
-          name: downloadPage
-          path: dist/downloadPage.exe
-          
-      - name: 检查 dist 目录
-        run: dir dist
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: downloadPage
+        path: dist/downloadPage.exe
+        
+    - name: 检查 dist 目录
+      run: dir dist
