@@ -24,7 +24,7 @@ jobs:
 
       - name: 打包为 EXE
         run: |
-          pyinstaller --onefile --name=download_xls download_xls.py
+          pyinstaller --onefile --name=downloadPage downloadPage.py
 
       - name: 上传 EXE 为 Artifact
         uses: actions/upload-artifact@v4
